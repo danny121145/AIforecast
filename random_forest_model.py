@@ -28,6 +28,8 @@ def train_forecast_model(df):
     mse = mean_squared_error(y_test, y_pred)
     rmse = np.sqrt(mse)
     mae = mean_absolute_error(y_test, y_pred)
+    non_zero_mask = y_test != 0
+    mape = np.mean(np.abs((y_test[non_zero_mask] - y_pred[non_zero_mask]) / (y_test[non_zero_mask]))) * 100
 
-    return model, mse, rmse, mae, y_test, y_pred, X_test.index
+    return model, mape, mse, rmse, mae, y_test, y_pred, X_test.index
 
